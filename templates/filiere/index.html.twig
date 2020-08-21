@@ -1,6 +1,6 @@
 {% extends 'inscription_backend_layout.html.twig' %}
 
-{% block title %}{{ parent() }} Gestion des instituts{% endblock %}
+{% block title %}{{ parent() }} : Gestion des filières{% endblock %}
 
 {% block body %}
     <div class="page-wrapper">
@@ -9,7 +9,7 @@
             <div class="page-header">
                 <div class="row">
                     <div class="col-12">
-                        <h3 class="page-title">Gestion des Instituts</h3>
+                        <h3 class="page-title">Gestion des filières</h3>
                     </div>
                     {% for message in app.flashes('success') %}
                         <div class="col-12">
@@ -49,20 +49,20 @@
                                     <tr>
                                     <tr>
                                         <th class="text-center">#</th>
-                                        <th class="text-center">Sigle</th>
-                                        <th class="text-center">Denomination</th>
+                                        <th class="text-center">Instituts</th>
+                                        <th class="text-center">filières</th>
                                         <th class="text-center">actions</th>
                                     </tr>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {% for institut in instituts %}
+                                    {% for filiere in filieres %}
                                         <tr>
-                                            <td>{{ institut.id }}</td>
-                                            <td>{{ institut.sigle }}</td>
-                                            <td>{{ institut.denomination }}</td>
+                                            <td>{{ loop.index }}</td>
+                                            <td>{{ filiere.institut.sigle }}</td>
+                                            <td>{{ filiere.libelle }}</td>
                                             <td class="text-center">
-                                                <a href="{{ path('backend_institut_edit', {'id': institut.id}) }}"><i class="fe fe-edit"></i></a>
+                                                <a href="{{ path('backend_filiere_edit', {'slug': filiere.slug}) }}"><i class="fe fe-edit"></i></a>
                                             </td>
                                         </tr>
                                     {% else %}
@@ -82,7 +82,7 @@
                             <h4 class="card-title">{{ 'labelSave'|trans }}</h4>
                         </div>
                         <div class="card-body">
-                            {{ include('institut/_form.html.twig') }}
+                            {{ include('filiere/_form.html.twig') }}
                         </div>
                     </div>
                 </div>
@@ -90,5 +90,4 @@
 
         </div>
     </div>
-
 {% endblock %}

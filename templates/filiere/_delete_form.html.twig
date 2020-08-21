@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('backend_filiere_delete', {'id': filiere.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer cette filière?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ filiere.id) }}">
+    <button class="btn btn-danger">{{ 'btnDelete'|trans }}</button>
+</form>

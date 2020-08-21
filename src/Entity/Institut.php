@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,6 +27,16 @@ class Institut
      * @ORM\Column(type="string", length=255)
      */
     private $denomination;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Filiere", mappedBy="institut")
+     */
+    private $filieres;
+
+    public function __construct()
+    {
+        $this->filieres = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -51,6 +63,37 @@ class Institut
     public function setDenomination(string $denomination): self
     {
         $this->denomination = $denomination;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Filiere[]
+     */
+    public function getFilieres(): Collection
+    {
+        return $this->filieres;
+    }
+
+    public function addFiliere(Filiere $filiere): self
+    {
+        if (!$this->filieres->contains($filiere)) {
+            $this->filieres[] = $filiere;
+            $filiere->setInstitut($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFiliere(Filiere $filiere): self
+    {
+        if ($this->filieres->contains($filiere)) {
+            $this->filieres->removeElement($filiere);
+            // set the owning side to null (unless already changed)
+            if ($filiere->getInstitut() === $this) {
+                $filiere->setInstitut(null);
+            }
+        }
 
         return $this;
     }

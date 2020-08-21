@@ -19,6 +19,11 @@ class InstitutRepository extends ServiceEntityRepository
         parent::__construct($registry, Institut::class);
     }
 
+    public function liste()
+    {
+        return $this->createQueryBuilder('i')->orderBy('i.sigle', 'ASC');
+    }
+
     // /**
     //  * @return Institut[] Returns an array of Institut objects
     //  */
