@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+        <link href="assets/img/favicon.png" rel="icon">
+        <title>{% block title %}School Management System{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/css/bootstrap.min.css')) }}">
+            <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/css/font-awesome.min.css')) }}">
+            <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/css/feathericon.min.css')) }}">
+            <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/plugins/fontawesome/css/all.min.css')) }}">
+        {% endblock %}
+        <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/css/style.css')) }}">
+
+        <!--[if lt IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="main-wrapper">
+            <div class="header">
+                <div class="header-left">
+                    <a href="{{ path('app_accueil') }}" class="logo">
+                        <img src="assets/img/logo.png" alt="Logo">
+                    </a>
+                    <a href="{{ path('app_accueil') }}" class="logo logo-small">
+                        <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30">
+                    </a>
+                </div>
+
+                <a href="javascript:void(0);" id="toggle_btn">
+                    <i class="fe fe-text-align-left"></i>
+                </a>
+
+                <div class="top-nav-search">
+                    <form>
+                        <input type="text" class="form-control" placeholder="Search here">
+                        <button class="btn" type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+
+                <a class="mobile_btn" id="mobile_btn">
+                    <i class="fa fa-bars"></i>
+                </a>
+
+                <ul class="nav user-menu">
+                    <li class="nav-item dropdown has-arrow">
+                        <a href="#" class="nav-link" >Déconnexion</a>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="sidebar" id="sidebar">
+                <div class="sidebar-inner slimscroll">
+                    <div id="sidebar-menu" class="sidebar-menu">
+                        <ul>
+                            <li class="menu-title">
+                                <span>Main</span>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fe fe-home"></i> <span>Tableau de bord</span></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fe fe-layout"></i> <span>Inscription</span></a>
+                            </li>
+                            <li class="submenu">
+                                <a href="#"><i class="fe fe-users"></i> <span> Etudiants</span> <span class="menu-arrow"></span></a>
+                                <ul style="display: none;">
+                                    <li><a href="#">Liste</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-title">
+                                <span>Paramètres</span>
+                            </li>
+                            <li class="submenu">
+                                <a href="#"><i class="fe fe-document"></i> <span> Gestion </span> <span class="menu-arrow"></span></a>
+                                <ul style="display: none;">
+                                    <li><a href="{{ absolute_url(path('backend_institut_index')) }}"> Instituts </a></li>
+                                    <li><a href="#"> Filières</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-title">
+                                <span>Administrateur</span>
+                            </li>
+                            <li>
+                                <a href=""><i class="fe fe-users"></i> <span>Utilisteurs</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            {% block body %}{% endblock %}
+
+
+        </div>
+        {% block javascripts %}
+            <script src="{{ absolute_url(asset('backoffice/js/jquery-3.2.1.min.js')) }}"></script>
+
+            <script src="{{ absolute_url(asset('backoffice/js/popper.min.js')) }}"></script>
+            <script src="{{ absolute_url(asset('backoffice/js/bootstrap.min.js')) }}"></script>
+            <script src="{{ absolute_url(asset('backoffice/plugins/slimscroll/jquery.slimscroll.min.js')) }}"></script>
+            <script src="{{ absolute_url(asset('backoffice/js/script.js')) }}"></script>
+        {% endblock %}
+    </body>
+</html>
