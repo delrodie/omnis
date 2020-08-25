@@ -4998,7 +4998,7 @@ html.menu-opened body {
     position: relative;
     transition: .3s;
     text-align: center;
-    width: 220px;
+    width: 320px;
 }
 .change-photo-btn input.upload {
 	bottom: 0;
@@ -5011,7 +5011,7 @@ html.menu-opened body {
     position: absolute;
     right: 0;
     top: 0;
-	width: 220px;
+	width: 320px;
 }
 .dropzone {
     background-color: #fbfbfb;

@@ -31,3 +31,10 @@ services:
         public: true
         tags:
             - { name: monolog.logger,channel: app}
+
+
+    App\Utilities\GestionMedia:
+        arguments:
+            $mediaIdentite: '%kernel.project_dir%/public/uploads/candidats/identite'
+            $mediaBac: '%kernel.project_dir%/public/uploads/inscription/diplome/baccalaureat'
+            $mediaDernierDiplome: '%kernel.project_dir%/public/uploads/inscription/diplome/dernier'

@@ -19,6 +19,11 @@ class FiliereRepository extends ServiceEntityRepository
         parent::__construct($registry, Filiere::class);
     }
 
+    public function liste()
+    {
+        return $this->createQueryBuilder('f')->orderBy('f.libelle','ASC');
+    }
+
     // /**
     //  * @return Filiere[] Returns an array of Filiere objects
     //  */

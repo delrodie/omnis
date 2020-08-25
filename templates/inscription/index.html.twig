@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription index{% endblock %}
+
+{% block body %}
+    <h1>Inscription index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Reference</th>
+                <th>Nom</th>
+                <th>Prenoms</th>
+                <th>DateNaissance</th>
+                <th>LieuNaissance</th>
+                <th>Contact</th>
+                <th>Correspondant</th>
+                <th>NiveauEtude</th>
+                <th>DernierDiplome</th>
+                <th>Baccalaureat</th>
+                <th>FileIdentite</th>
+                <th>FileDiplome</th>
+                <th>CreatedAt</th>
+                <th>Annee</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for inscription in inscriptions %}
+            <tr>
+                <td>{{ inscription.id }}</td>
+                <td>{{ inscription.reference }}</td>
+                <td>{{ inscription.nom }}</td>
+                <td>{{ inscription.prenoms }}</td>
+                <td>{{ inscription.dateNaissance }}</td>
+                <td>{{ inscription.lieuNaissance }}</td>
+                <td>{{ inscription.contact }}</td>
+                <td>{{ inscription.correspondant }}</td>
+                <td>{{ inscription.niveauEtude }}</td>
+                <td>{{ inscription.dernierDiplome }}</td>
+                <td>{{ inscription.baccalaureat }}</td>
+                <td>{{ inscription.fileIdentite }}</td>
+                <td>{{ inscription.fileDiplome }}</td>
+                <td>{{ inscription.createdAt ? inscription.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ inscription.annee }}</td>
+                <td>
+                    <a href="{{ path('inscription_show', {'reference': inscription.reference}) }}">show</a>
+                    <a href="{{ path('inscription_edit', {'id': inscription.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="16">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('inscription_new') }}">Create new</a>
+{% endblock %}

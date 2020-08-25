@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +32,16 @@ class Filiere
      * @ORM\ManyToOne(targetEntity="App\Entity\Institut", inversedBy="filieres")
      */
     private $institut;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Inscription", mappedBy="filiere")
+     */
+    private $inscriptions;
+
+    public function __construct()
+    {
+        $this->inscriptions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -68,6 +80,37 @@ class Filiere
     public function setInstitut(?Institut $institut): self
     {
         $this->institut = $institut;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Inscription[]
+     */
+    public function getInscriptions(): Collection
+    {
+        return $this->inscriptions;
+    }
+
+    public function addInscription(Inscription $inscription): self
+    {
+        if (!$this->inscriptions->contains($inscription)) {
+            $this->inscriptions[] = $inscription;
+            $inscription->setFiliere($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInscription(Inscription $inscription): self
+    {
+        if ($this->inscriptions->contains($inscription)) {
+            $this->inscriptions->removeElement($inscription);
+            // set the owning side to null (unless already changed)
+            if ($inscription->getFiliere() === $this) {
+                $inscription->setFiliere(null);
+            }
+        }
 
         return $this;
     }
