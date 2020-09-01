@@ -1,0 +1,101 @@
+{% extends 'inscription_backend_layout.html.twig' %}
+
+{% block title %}Hello BackendInscriptionController!{% endblock %}
+
+{% block body %}
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="page-title">Gestion des inscrits</h3>
+                    </div>
+                    {% for message in app.flashes('success') %}
+                        <div class="col-12">
+                            <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <i class="mdi mdi-checkbox-marked-circle font-32"></i><strong class="pr-1">Success !</strong> {{ message }}
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    {% for message in app.flashes('error') %}
+                        <div class="col-12">
+                            <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <i class="mdi mdi-close-circle font-32"></i><strong class="pr-1">Erreur !</strong>
+                                {{ message }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">{{ 'labelList'|trans }}</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="datatable table table-hover table-center mb-0">
+                                    <thead>
+                                    <tr>
+                                    <tr>
+                                        <th class="text-center">Reference</th>
+                                        <th class="text-center">Nom prenoms</th>
+                                        <th class="text-center">Date Naissance</th>
+                                        <th class="text-center">Lieu Naissance</th>
+                                        <th class="text-center">Contact</th>
+                                        <th class="text-center">Niveau Etude</th>
+                                        <th class="text-center">Date</th>
+                                    </tr>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for inscription in inscriptions %}
+                                        <tr>
+                                            <td class="text-center">{{ inscription.reference }}</td>
+                                            <td>
+                                                <h2 class="table-avatar">
+                                                    <a href="{{ path('backend_inscription_show', {'reference': inscription.reference}) }}" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{ absolute_url(asset('uploads/candidats/identite/'~ inscription.fileIdentite)) }}" alt="User Image"></a>
+                                                    <a href="{{ path('backend_inscription_show', {'reference': inscription.reference}) }}">{{ inscription.nom }}  {{ inscription.prenoms }}</a>
+                                                </h2>
+                                            </td>
+                                            <td class="text-center">{{ inscription.dateNaissance }}</td>
+                                            <td>{{ inscription.lieuNaissance }}</td>
+                                            <td class="text-center">{{ inscription.contact }}</td>
+                                            <td>{{ inscription.dernierDiplome }}</td>
+                                            <td class="text-center">{{ inscription.createdAt ? inscription.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="16">no records found</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/plugins/datatables/datatables.min.css')) }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ absolute_url(asset('backoffice/plugins/datatables/jquery.dataTables.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('backoffice/plugins/datatables/datatables.min.js')) }}"></script>
+{% endblock %}

@@ -65,7 +65,7 @@
                                 <a href="#"><i class="fe fe-home"></i> <span>Tableau de bord</span></a>
                             </li>
                             <li>
-                                <a href="#"><i class="fe fe-layout"></i> <span>Inscription</span></a>
+                                <a href="{{ path('backend_inscription_index') }}"><i class="fe fe-layout"></i> <span>Inscription</span></a>
                             </li>
                             <li class="submenu">
                                 <a href="#"><i class="fe fe-users"></i> <span> Etudiants</span> <span class="menu-arrow"></span></a>
@@ -104,7 +104,7 @@
             <script src="{{ absolute_url(asset('backoffice/js/popper.min.js')) }}"></script>
             <script src="{{ absolute_url(asset('backoffice/js/bootstrap.min.js')) }}"></script>
             <script src="{{ absolute_url(asset('backoffice/plugins/slimscroll/jquery.slimscroll.min.js')) }}"></script>
-            <script src="{{ absolute_url(asset('backoffice/js/script.js')) }}"></script>
         {% endblock %}
+        <script src="{{ absolute_url(asset('backoffice/js/script.js')) }}"></script>
     </body>
 </html>

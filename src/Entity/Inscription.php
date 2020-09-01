@@ -96,6 +96,11 @@ class Inscription
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $valid;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -294,6 +299,18 @@ class Inscription
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getValid(): ?bool
+    {
+        return $this->valid;
+    }
+
+    public function setValid(?bool $valid): self
+    {
+        $this->valid = $valid;
 
         return $this;
     }
