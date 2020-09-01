@@ -18,3 +18,5 @@ btnAdd: "Ajouter"
 
 labelSave: "Enregistrement"
 labelList: "Liste"
+
+This is a sample exception. : "Une erreur interne. Veuillez reprendre votre action"

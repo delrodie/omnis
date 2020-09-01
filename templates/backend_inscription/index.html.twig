@@ -49,6 +49,7 @@
                                     <tr>
                                     <tr>
                                         <th class="text-center">Reference</th>
+                                        <th class="text-center">Statut</th>
                                         <th class="text-center">Nom prenoms</th>
                                         <th class="text-center">Date Naissance</th>
                                         <th class="text-center">Lieu Naissance</th>
@@ -61,7 +62,12 @@
                                     <tbody>
                                     {% for inscription in inscriptions %}
                                         <tr>
-                                            <td class="text-center">{{ inscription.reference }}</td>
+                                            <td class="text-center">
+                                                {{ inscription.reference }}
+                                            </td>
+                                            <td class="text-center">
+                                                {% if inscription.valid %} <span class="badge badge-success">Approuvé</span>{% endif %}
+                                            </td>
                                             <td>
                                                 <h2 class="table-avatar">
                                                     <a href="{{ path('backend_inscription_show', {'reference': inscription.reference}) }}" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{ absolute_url(asset('uploads/candidats/identite/'~ inscription.fileIdentite)) }}" alt="User Image"></a>

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Inscription;
 use App\Form\InscriptionType;
 use App\Repository\InscriptionRepository;
+use App\Utilities\GestionMail;
 use App\Utilities\GestionMedia;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,10 +18,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class InscriptionController extends AbstractController
 {
     private $gestionMedia;
+    private $gestionMail;
 
-    public function __construct(GestionMedia $gestionMedia)
+    public function __construct(GestionMedia $gestionMedia, GestionMail $gestionMail)
     {
         $this->gestionMedia = $gestionMedia;
+        $this->gestionMail = $gestionMail;
     }
 
     /**
@@ -98,6 +101,9 @@ class InscriptionController extends AbstractController
             $entityManager->persist($inscription);
             $entityManager->flush();
 
+            $this->addFlash('succes', "Votre pré-inscription a bien été enregistrée. Vous serez notifié(e) après analyse de votre dossier.");
+            $this->gestionMail->notificationInscriptionTest('PRE-INSCRIPTION ENREGISTREE AVEC SUCCES', $inscription);
+
             return $this->redirectToRoute('inscription_show',['reference'=>$inscription->getReference()]);
         }
 
@@ -112,6 +118,11 @@ class InscriptionController extends AbstractController
      */
     public function show(Inscription $inscription): Response
     {
+        $user = $this->getUser();
+        if ($this->getUser() !== $inscription->getUser()){
+            //throw $this->createNotFoundException('Attention vous ne pouvez pas acceder à ce profil');
+            throw  new \Exception("Attention vous ne pouvez pas acceder à ce profil");
+        }
         return $this->render('inscription/show.html.twig', [
             'inscription' => $inscription,
         ]);

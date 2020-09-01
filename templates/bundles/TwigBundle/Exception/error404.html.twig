@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>Error 500</title>
+
+    <link href="assets/img/favicon.png" rel="icon">
+    <title>{% block title %}School Management System{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/css/bootstrap.min.css')) }}">
+        <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/css/font-awesome.min.css')) }}">
+        <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/css/feathericon.min.css')) }}">
+        <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/plugins/fontawesome/css/all.min.css')) }}">
+    {% endblock %}
+    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/css/style.css')) }}">
+
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="error-page">
+
+<div class="main-wrapper">
+
+    <div class="error-box">
+        <h1>500</h1>
+        <h3 class="h2 mb-3"><i class="fa fa-warning"></i> Oops! Une erreur survenue</h3>
+        <p class="h4 font-weight-normal">La page recherchée a été supprimée ou n'existe pas.</p>
+        <a href="{{ absolute_url(path('app_accueil')) }}" class="btn btn-primary">Retour à l'accueil</a>
+    </div>
+
+</div>
+{% block javascripts %}
+    <script src="{{ absolute_url(asset('backoffice/js/jquery-3.2.1.min.js')) }}"></script>
+
+    <script src="{{ absolute_url(asset('backoffice/js/popper.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('backoffice/js/bootstrap.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('backoffice/plugins/slimscroll/jquery.slimscroll.min.js')) }}"></script>
+{% endblock %}
+<script src="{{ absolute_url(asset('backoffice/js/script.js')) }}"></script>
+
+</body>
+
+</html>
