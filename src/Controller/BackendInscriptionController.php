@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Inscription;
 use App\Repository\InscriptionRepository;
+use App\Utilities\GestionMail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,10 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class BackendInscriptionController extends AbstractController
 {
     private $inscriptionRepository;
+    private $gestionMail;
 
-    public function __construct(InscriptionRepository $inscriptionRepository)
+    public function __construct(InscriptionRepository $inscriptionRepository, GestionMail $gestionMail)
     {
         $this->inscriptionRepository =$inscriptionRepository;
+        $this->gestionMail = $gestionMail;
     }
     /**
      * @Route("/", name="backend_inscription_index")

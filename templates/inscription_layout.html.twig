@@ -30,7 +30,7 @@
 							</span>
                 </a>
                 <a href="{{ absolute_url(path('app_accueil')) }}" class="navbar-brand logo">
-                    <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
+                    <img src="{{ asset('backoffice/img/omnis_logo.png') }}" class="img-fluid" alt="Logo">
                 </a>
             </div>
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}

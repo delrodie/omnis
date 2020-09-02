@@ -139,7 +139,9 @@ class InscriptionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('inscription_index');
+            $this->addFlash('succes', "Votre profil a été modifié avec succès");
+
+            return $this->redirectToRoute('inscription_show', ['reference'=>$inscription->getReference()]);
         }
 
         return $this->render('inscription/edit.html.twig', [
