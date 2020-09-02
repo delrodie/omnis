@@ -54,6 +54,8 @@ class BackendInscriptionController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             // Envoi de mail d'approbation de demande
+            $this->gestionMail->notificationInscriptionTestValidation("VALIDATION DE LA PRE-INSCRIPTION",$inscription);
+
             // Calendrier de passage
 
             $this->addFlash('success', "Demande de test approuvée");

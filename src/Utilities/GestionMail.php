@@ -84,6 +84,27 @@ class GestionMail
         return true;
     }
 
+    public function notificationInscriptionTestValidation($objet,$etudiant)
+    {
+        // Envoi d'email à l'etudiant concerné
+        $email_etudiant = (new \Swift_Message($objet))
+            ->setFrom('no-reply@selfbrandingci.com')
+            ->setTo($etudiant->getUser()->getEmail())
+            //->setBcc('delrodieamoikon@gmail.com')
+            ->setBcc(['delrodieamoikon@gmail.com'])
+            ->setBody(
+                $this->template->render('email/inscription_test_validation.html.twig',[
+                    'etudiant' => $etudiant,
+                ]),
+                'text/html'
+            )
+        ;
+
+        $this->swift_mail->send($email_etudiant);
+
+        return true;
+    }
+
     /**
      * Les messages pour l'envoi de mail
      * 0 = Message de confirmation de creation de compte

@@ -1,6 +1,6 @@
 {% extends 'inscription_layout.html.twig' %}
 
-{% block title %}{{ parent() }} {% endblock %}
+{% block title %}{{ parent() }} {{ inscription.nom }} {{ inscription.prenoms }}{% endblock %}
 
 {% block body %}
     <div class="breadcrumb-bar">
@@ -142,9 +142,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-center mt-5">
-                                <a href="{{ path('inscription_edit', {'reference': inscription.reference}) }}" class="btn btn-secondary">Modifier</a>
-                            </div>
+                            {% if inscription.valid is null %}
+                                <div class="text-center mt-5">
+                                    <a href="{{ path('inscription_edit', {'reference': inscription.reference}) }}" class="btn btn-secondary">Modifier</a>
+                                </div>
+                            {% endif %}
 
                         </div>
                     </div>
