@@ -19,6 +19,11 @@ class AnneeRepository extends ServiceEntityRepository
         parent::__construct($registry, Annee::class);
     }
 
+    public function liste()
+    {
+        return $this->createQueryBuilder('a')->orderBy('a.libelle', 'DESC');
+    }
+
     // /**
     //  * @return Annee[] Returns an array of Annee objects
     //  */

@@ -1,0 +1,78 @@
+{{ form_start(form) }}
+    <div class="form-group row">
+        <label class="col-12 col-form-label">Année</label>
+        <div class="col-12">
+            {{ form_widget(form.annee) }}
+            {{ form_errors(form.annee) }}
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-12 col-form-label">Nombre</label>
+        <div class="col-12">
+            {{ form_widget(form.nombre) }}
+            {{ form_errors(form.nombre) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Debut période</label>
+        <div class="cal-icon">
+            {{ form_widget(form.dateDebut) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Fin période</label>
+        <div class="cal-icon">
+            {{ form_widget(form.dateFin) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="">Les jours de composition</label>
+    </div>
+    <div class="checkbox">
+        <label>
+            {{ form_widget(form.lundi) }} {{ form_label(form.lundi) }}
+            {{ form_errors(form.lundi) }}
+        </label>
+    </div>
+    <div class="checkbox">
+        <label>
+            {{ form_widget(form.mardi) }} {{ form_label(form.mardi) }}
+            {{ form_errors(form.mardi) }}
+        </label>
+    </div>
+    <div class="checkbox">
+        <label>
+            {{ form_widget(form.mercredi) }} {{ form_label(form.mercredi) }}
+            {{ form_errors(form.mercredi) }}
+        </label>
+    </div>
+    <div class="checkbox">
+        <label>
+            {{ form_widget(form.jeudi) }} {{ form_label(form.jeudi) }}
+            {{ form_errors(form.jeudi) }}
+        </label>
+    </div>
+    <div class="checkbox">
+        <label>
+            {{ form_widget(form.vendredi) }} {{ form_label(form.vendredi) }}
+            {{ form_errors(form.vendredi) }}
+        </label>
+    </div>
+    <div class="checkbox">
+        <label>
+            {{ form_widget(form.samedi) }} {{ form_label(form.samedi) }}
+            {{ form_errors(form.samedi) }}
+        </label>
+    </div>
+    <div class="checkbox">
+        <label>
+            {{ form_widget(form.dimanche) }} {{ form_label(form.dimanche) }}
+            {{ form_errors(form.dimanche) }}
+        </label>
+    </div>
+    {{ form_widget(form) }}
+    <div class="text-right mt-3">
+        <button class="btn btn-primary">{{ button_label|default('btnSave'|trans) }}</button>
+    </div>
+
+{{ form_end(form) }}

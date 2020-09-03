@@ -1,0 +1,119 @@
+{% extends 'inscription_backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} gestion des tests{% endblock %}
+
+{% block body %}
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="page-title">Gestion des filières</h3>
+                    </div>
+                    {% for message in app.flashes('success') %}
+                        <div class="col-12">
+                            <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <i class="mdi mdi-checkbox-marked-circle font-32"></i><strong class="pr-1">Success !</strong> {{ message }}
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    {% for message in app.flashes('error') %}
+                        <div class="col-12">
+                            <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <i class="mdi mdi-close-circle font-32"></i><strong class="pr-1">Erreur !</strong>
+                                {{ message }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-9">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">{{ 'labelList'|trans }}</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table  table-nowrap mb-0">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">Année</th>
+                                            <th class="text-center">Periode</th>
+                                            <th class="text-center">Nombre</th>
+                                            <th class="text-center">Lundi</th>
+                                            <th class="text-center">Mardi</th>
+                                            <th class="text-center">Mercredi</th>
+                                            <th class="text-center">Jeudi</th>
+                                            <th class="text-center">Vendredi</th>
+                                            <th class="text-center">Samedi</th>
+                                            <th class="text-center">Dimanche</th>
+                                            <th class="text-center">actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for test in tests %}
+                                            <tr>
+                                                <td class="text-center">{{ test.annee.libelle }}</td>
+                                                <td class="text-center">{{ test.dateDebut }} - {{ test.dateFin }}</td>
+                                                <td class="text-center">{{ test.nombre }}</td>
+                                                <td class="text-center">{{ test.lundi ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>' }}</td>
+                                                <td class="text-center">{{ test.mardi ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>' }}</td>
+                                                <td class="text-center">{{ test.mercredi ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>' }}</td>
+                                                <td class="text-center">{{ test.jeudi ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>' }}</td>
+                                                <td class="text-center">{{ test.vendredi ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>' }}</td>
+                                                <td class="text-center">{{ test.samedi ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>' }}</td>
+                                                <td class="text-center">{{ test.dimanche ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>' }}</td>
+                                                <td class="text-center">
+                                                    <a href="{{ path('backend_test_edit', {'id': test.id}) }}"><i class="fe fe-edit"></i></a>
+                                                </td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td class="text-center" colspan="10"><em>Aucun enregistrement</em></td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+                            <h4 class="card-title">{{ 'labelSave'|trans }}</h4>
+                        </div>
+                        <div class="card-body">
+                            {{ include('test/_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ absolute_url(asset('inscription/css/bootstrap-datetimepicker.min.css')) }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('inscription/plugins/select2/css/select2.min.css')) }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ absolute_url(asset('inscription/plugins/select2/js/select2.min.js')) }}"></script>
+
+    <script src="{{ absolute_url(asset('inscription/js/moment.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('inscription/js/bootstrap-datetimepicker.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('inscription/js/script.js')) }}"></script>
+{% endblock %}
