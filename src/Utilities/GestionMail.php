@@ -52,7 +52,7 @@ class GestionMail
     {
         // Envoi d'email à l'etudiant concerné
         $email_etudiant = (new \Swift_Message($objet))
-            ->setFrom('no-reply@selfbrandingci.com')
+            ->setFrom('no-reply@selfbrandingci.com', 'SELFBRANDING::OMNIS')
             ->setTo($etudiant->getUser()->getEmail())
             //->setBcc('delrodieamoikon@gmail.com')
             ->setBcc(['delrodieamoikon@gmail.com'])
@@ -66,7 +66,7 @@ class GestionMail
 
         // Envoi d'email aux administrateurs concernés
         $email_admin = (new \Swift_Message("PRE-INSCRIPTION AU TEST D'ENTREE"))
-            ->setFrom('no-reply@selfbrandingci.com')
+            ->setFrom('no-reply@selfbrandingci.com', 'SELFBRANDING::OMNIS')
             ->setTo('pareabel58@gmail.com')
             //->setBcc('delrodieamoikon@gmail.com')
             ->setBcc(['delrodieamoikon@gmail.com'])
@@ -88,7 +88,7 @@ class GestionMail
     {
         // Envoi d'email à l'etudiant concerné
         $email_etudiant = (new \Swift_Message($objet))
-            ->setFrom('no-reply@selfbrandingci.com')
+            ->setFrom('no-reply@selfbrandingci.com', 'SELFBRANDING::OMNIS')
             ->setTo($etudiant->getUser()->getEmail())
             //->setBcc('delrodieamoikon@gmail.com')
             ->setBcc(['delrodieamoikon@gmail.com'])

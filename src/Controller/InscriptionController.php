@@ -41,13 +41,13 @@ class InscriptionController extends AbstractController
      */
     public function new(Request $request, InscriptionRepository $inscriptionRepository): Response
     {
+        $user = $this->getUser();
         $inscription = new Inscription();
         $form = $this->createForm(InscriptionType::class, $inscription);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $user = $this->getUser(); //dd($user);
 
             // Verification de non existence de l'user
             $verif = $inscriptionRepository->findOneBy(['user'=>$user]);
@@ -107,6 +107,12 @@ class InscriptionController extends AbstractController
             return $this->redirectToRoute('inscription_show',['reference'=>$inscription->getReference()]);
         }
 
+        // Verification de non existence de l'user
+        $verif = $inscriptionRepository->findOneBy(['user'=>$user]);
+        if ($verif){
+            return $this->redirectToRoute('inscription_show',['reference'=>$verif->getReference()]);
+        }
+
         return $this->render('inscription/new.html.twig', [
             'inscription' => $inscription,
             'form' => $form->createView(),
@@ -118,6 +124,8 @@ class InscriptionController extends AbstractController
      */
     public function show(Inscription $inscription): Response
     {
+        $format_jour = '%#d';
+        $jour = strftime("%A $format_jour %B %Y", strtotime($inscription->getDateNaissance())); dd($jour);
         $user = $this->getUser();
         if ($this->getUser() !== $inscription->getUser()){
             //throw $this->createNotFoundException('Attention vous ne pouvez pas acceder à ce profil');
