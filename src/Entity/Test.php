@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -70,6 +72,16 @@ class Test
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $dateFin;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CompositionTest", mappedBy="test")
+     */
+    private $compositions;
+
+    public function __construct()
+    {
+        $this->compositions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -204,6 +216,37 @@ class Test
     public function setDateFin(?string $dateFin): self
     {
         $this->dateFin = $dateFin;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CompositionTest[]
+     */
+    public function getCompositions(): Collection
+    {
+        return $this->compositions;
+    }
+
+    public function addComposition(CompositionTest $composition): self
+    {
+        if (!$this->compositions->contains($composition)) {
+            $this->compositions[] = $composition;
+            $composition->setTest($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComposition(CompositionTest $composition): self
+    {
+        if ($this->compositions->contains($composition)) {
+            $this->compositions->removeElement($composition);
+            // set the owning side to null (unless already changed)
+            if ($composition->getTest() === $this) {
+                $composition->setTest(null);
+            }
+        }
 
         return $this;
     }
