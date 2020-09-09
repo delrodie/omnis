@@ -1,52 +1,36 @@
-{% extends 'inscription_layout.html.twig' %}
+{% extends 'security_layout.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Creation de compte{% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
+    <div class="login-right">
+        <div class="login-right-wrap">
+            <h1 class="mb-5">Création de compte</h1>
 
-            <div class="account-content">
-                <div class="row align-items-center justify-content-center">
-                    <div class="col-md-7 col-lg-6 login-left">
-                        <img src="{{ asset('backoffice/img/logo_omnis300-01.png') }}" class="img-fluid" alt="Doccure Register">
-                    </div>
-                    <div class="col-md-12 col-lg-6 login-right">
-                        <div class="login-header">
-                            <h3>Création de compte </h3>
-                        </div>
-                        {{ form_start(registrationForm) }}
-                        <div class="form-group form-focus">
-                            {{ form_widget(registrationForm.email) }}
-                            <label class="focus-label">Adresse email</label>
-                            {{ form_errors(registrationForm.email) }}
-                        </div>
-                        <div class="form-group form-focus">
-                            {{ form_widget(registrationForm.username) }}
-                            <label class="focus-label">Nom utilisateur</label>
-                            {{ form_errors(registrationForm.username) }}
-                        </div>
-                        <div class="form-group form-focus">
-                            {{ form_widget(registrationForm.plainPassword) }}
-                            <label class="focus-label">Mot de passe</label>
-                            {{ form_errors(registrationForm.plainPassword) }}
-                        </div>
-                        <div class="form-group form-focus">
-                            {{ form_row(registrationForm.agreeTerms) }}
-                        </div>
-
-                        <div class="text-right">
-                            <a class="forgot-link" href="{{ path('app_login') }}">Vous avez déjà un compte?</a>
-                        </div>
-                        <button class="btn btn-primary btn-block btn-lg login-btn">{{ 'Register'|trans }}</button>
-                        {{ form_end(registrationForm) }}
-
-
-                    </div>
-                </div>
+            {{ form_start(registrationForm) }}
+            <div class="form-group form-focus">
+                {{ form_widget(registrationForm.email) }}
+                {{ form_errors(registrationForm.email) }}
             </div>
+            <div class="form-group form-focus">
+                {{ form_widget(registrationForm.username) }}
+                {{ form_errors(registrationForm.username) }}
+            </div>
+            <div class="form-group form-focus">
+                {{ form_widget(registrationForm.plainPassword) }}
+                {{ form_errors(registrationForm.plainPassword) }}
+            </div>
+            <div class="custom-checkbox">
+                <label>
+                    {{ form_widget(registrationForm.agreeTerms) }}
+                    {{ form_label(registrationForm.agreeTerms) }}
+                </label>
 
+            </div>
+            <button class="btn btn-primary btn-block">{{ 'Register'|trans }}</button>
+            {{ form_end(registrationForm) }}
+
+            <div class="text-right dont-have">Avez-vous déjà un compte? <a href="{{ absolute_url(path('app_login')) }}">Se connecter</a></div>
         </div>
     </div>
-
 {% endblock %}

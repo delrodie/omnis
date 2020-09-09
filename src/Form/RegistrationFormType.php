@@ -20,8 +20,8 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class,['attr'=>['class'=>'form-control floating']])
-            ->add('username', TextType::class,['attr'=>['class'=>'form-control floating', 'autocomplete'=>"off"]])
+            ->add('email', EmailType::class,['attr'=>['class'=>'form-control floating', 'placeholder'=>"Adresse email"]])
+            ->add('username', TextType::class,['attr'=>['class'=>'form-control floating', 'autocomplete'=>"off", 'placeholder'=>"Nom utilisateur"]])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -46,7 +46,7 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-                'attr'=>['class'=>"form-control floating"]
+                'attr'=>['class'=>"form-control floating", "placeholder"=>"Mot de passe"]
             ])
         ;
     }

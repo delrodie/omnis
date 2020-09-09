@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+    <link href="assets/img/favicon.png" rel="icon">
+    <title>{% block title %}OMNIS ::{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/css/bootstrap.min.css')) }}">
+        <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/css/font-awesome.min.css')) }}">
+        <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/plugins/fontawesome/css/all.min.css')) }}">
+    {% endblock %}
+    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/css/style.css')) }}">
+
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <div class="main-wrapper login-body">
+    <div class="login-wrapper">
+        <div class="container">
+            <div class="loginbox">
+                <div class="login-left">
+                    <img class="img-fluid" src="{{ asset('backoffice/img/logo_omnis300-01.png') }}" alt="Logo">
+                </div>
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block javascripts %}
+    <script src="{{ absolute_url(asset('backoffice/js/jquery-3.2.1.min.js')) }}"></script>
+
+    <script src="{{ absolute_url(asset('backoffice/js/popper.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('backoffice/js/bootstrap.min.js')) }}"></script>
+{% endblock %}
+<script src="{{ absolute_url(asset('backoffice/js/script.js')) }}"></script>
+</body>
+</html>
