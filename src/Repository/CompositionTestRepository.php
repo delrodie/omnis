@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\CompositionTest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +19,21 @@ class CompositionTestRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, CompositionTest::class);
+    }
+
+    public function nombre($date)
+    {
+        try {
+            return $this->createQueryBuilder('c')
+                ->select('COUNT(c.id)')
+                ->where('c.date = :date')
+                ->setParameter('date', $date)
+                ->getQuery()->getSingleScalarResult();
+        } catch (NoResultException $e) {
+            return $e;
+        } catch (NonUniqueResultException $e) {
+            return $e;
+        }
     }
 
     // /**

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Inscription;
 use App\Form\InscriptionType;
 use App\Repository\InscriptionRepository;
+use App\Utilities\GestionComposition;
 use App\Utilities\GestionMail;
 use App\Utilities\GestionMedia;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,11 +20,13 @@ class InscriptionController extends AbstractController
 {
     private $gestionMedia;
     private $gestionMail;
+    private $gestionComposition;
 
-    public function __construct(GestionMedia $gestionMedia, GestionMail $gestionMail)
+    public function __construct(GestionMedia $gestionMedia, GestionMail $gestionMail, GestionComposition  $gestionComposition)
     {
         $this->gestionMedia = $gestionMedia;
         $this->gestionMail = $gestionMail;
+        $this->gestionComposition = $gestionComposition;
     }
 
     /**
@@ -98,6 +101,7 @@ class InscriptionController extends AbstractController
 
             $inscription->setReference($reference);
             $inscription->setUser($user);
+
             $entityManager->persist($inscription);
             $entityManager->flush();
 
@@ -125,7 +129,7 @@ class InscriptionController extends AbstractController
     public function show(Inscription $inscription): Response
     {
         $format_jour = '%#d';
-        $jour = strftime("%A $format_jour %B %Y", strtotime($inscription->getDateNaissance())); dd($jour);
+        $jour = strftime("%A $format_jour %B %Y", strtotime($inscription->getDateNaissance())); //dd($jour);
         $user = $this->getUser();
         if ($this->getUser() !== $inscription->getUser()){
             //throw $this->createNotFoundException('Attention vous ne pouvez pas acceder à ce profil');

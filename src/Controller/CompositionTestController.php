@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/composition/test")
+ * @Route("/backend/composition/test")
  */
 class CompositionTestController extends AbstractController
 {

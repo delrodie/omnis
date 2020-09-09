@@ -26,6 +26,15 @@ class TestController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            // Reformattage des dates
+            $debut = explode("/",$test->getDateDebut());
+            $fin = explode("/",$test->getDateFin());
+            $nouvelle_date_debut = $debut['2'].'-'.$debut['1'].'-'.$debut['0'];
+            $nouvelle_date_fin = $fin['2'].'-'.$fin['1'].'-'.$fin['0'];
+            $test->setDateDebut($nouvelle_date_debut);
+            $test->setDateFin($nouvelle_date_fin);
+
             $verif = $testRepository->findOneBy(['annee'=>$test->getAnnee()]);
             if ($verif){
                 $this->addFlash('error', "Le test de cette année accademique a deja été defini");

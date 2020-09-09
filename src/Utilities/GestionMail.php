@@ -48,7 +48,7 @@ class GestionMail
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function notificationInscriptionTest($objet, $etudiant)
+    public function notificationInscriptionTest($objet, $etudiant, $composition= null)
     {
         // Envoi d'email à l'etudiant concerné
         $email_etudiant = (new \Swift_Message($objet))
@@ -84,7 +84,7 @@ class GestionMail
         return true;
     }
 
-    public function notificationInscriptionTestValidation($objet,$etudiant)
+    public function notificationInscriptionTestValidation($objet,$etudiant, $composition =null)
     {
         // Envoi d'email à l'etudiant concerné
         $email_etudiant = (new \Swift_Message($objet))
@@ -95,6 +95,7 @@ class GestionMail
             ->setBody(
                 $this->template->render('email/inscription_test_validation.html.twig',[
                     'etudiant' => $etudiant,
+                    'composition' => $composition
                 ]),
                 'text/html'
             )

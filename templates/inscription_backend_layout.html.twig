@@ -64,8 +64,12 @@
                             <li>
                                 <a href="#"><i class="fe fe-home"></i> <span>Tableau de bord</span></a>
                             </li>
-                            <li>
-                                <a href="{{ path('backend_inscription_index') }}"><i class="fe fe-layout"></i> <span>Inscription</span></a>
+                            <li class="submenu">
+                                <a href="#"><i class="fe fe-users"></i> <span> Inscription</span> <span class="menu-arrow"></span></a>
+                                <ul style="display: none;">
+                                    <li><a href="{{ path('backend_inscription_index') }}">Liste</a></li>
+                                    <li><a href="{{ path('composition_test_index') }}">Test d'entrée</a></li>
+                                </ul>
                             </li>
                             <li class="submenu">
                                 <a href="#"><i class="fe fe-users"></i> <span> Etudiants</span> <span class="menu-arrow"></span></a>

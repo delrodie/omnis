@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Inscription;
 use App\Repository\InscriptionRepository;
+use App\Utilities\GestionComposition;
 use App\Utilities\GestionMail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,11 +18,13 @@ class BackendInscriptionController extends AbstractController
 {
     private $inscriptionRepository;
     private $gestionMail;
+    private $gestionComposition;
 
-    public function __construct(InscriptionRepository $inscriptionRepository, GestionMail $gestionMail)
+    public function __construct(InscriptionRepository $inscriptionRepository, GestionMail $gestionMail, GestionComposition $gestionComposition)
     {
         $this->inscriptionRepository =$inscriptionRepository;
         $this->gestionMail = $gestionMail;
+        $this->gestionComposition = $gestionComposition;
     }
     /**
      * @Route("/", name="backend_inscription_index")
@@ -53,8 +56,11 @@ class BackendInscriptionController extends AbstractController
             $inscription->setValid(true);
             $this->getDoctrine()->getManager()->flush();
 
+            // Generation de la date de test
+            $date_composition = $this->gestionComposition->affectation($inscription);
+
             // Envoi de mail d'approbation de demande
-            $this->gestionMail->notificationInscriptionTestValidation("VALIDATION DE LA PRE-INSCRIPTION",$inscription);
+            $this->gestionMail->notificationInscriptionTestValidation("VALIDATION DE LA PRE-INSCRIPTION",$inscription, $date_composition);
 
             // Calendrier de passage
 
