@@ -49,6 +49,7 @@
                                     <tr>
                                     <tr>
                                         <th class="text-center">Reference</th>
+                                        <th class="text-center">Resultat</th>
                                         <th class="text-center">Nom prenoms</th>
                                         <th class="text-center">Date Naissance</th>
                                         <th class="text-center">Lieu Naissance</th>
@@ -64,10 +65,17 @@
                                             <td class="text-center">
                                                 {{ composition.candidat.reference }}
                                             </td>
+                                            <td class="text-center">
+                                                {% if composition.resultat == 'ADMIS(E)' %}
+                                                    <span class="badge badge-success">{{ composition.resultat }}</span>
+                                                {% else %}
+                                                    <span class="badge badge-danger">{{ composition.resultat }}</span>
+                                                {% endif %}
+                                            </td>
                                             <td>
                                                 <h2 class="table-avatar">
-                                                    <a href="{{ path('backend_inscription_show', {'reference': composition.candidat.reference}) }}" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{ absolute_url(asset('uploads/candidats/identite/'~ composition.candidat.fileIdentite)) }}" alt="User Image"></a>
-                                                    <a href="{{ path('backend_inscription_show', {'reference': composition.candidat.reference}) }}">{{ composition.candidat.nom }}  {{ composition.candidat.prenoms }}</a>
+                                                    <a href="{{ path('composition_test_edit', {'id': composition.id}) }}" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{ absolute_url(asset('uploads/candidats/identite/'~ composition.candidat.fileIdentite)) }}" alt="User Image"></a>
+                                                    <a href="{{ path('composition_test_edit', {'id': composition.id}) }}">{{ composition.candidat.nom }}  {{ composition.candidat.prenoms }}</a>
                                                 </h2>
                                             </td>
                                             <td class="text-center">{{ composition.candidat.dateNaissance }}</td>

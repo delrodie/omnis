@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\CompositionTest;
 use App\Form\CompositionTestType;
 use App\Repository\CompositionTestRepository;
+use App\Utilities\GestionMail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CompositionTestController extends AbstractController
 {
+    private $gestionMail;
+
+    public function __construct(GestionMail $gestionMail)
+    {
+        $this->gestionMail = $gestionMail;
+    }
     /**
      * @Route("/", name="composition_test_index", methods={"GET"})
      */
@@ -68,6 +75,14 @@ class CompositionTestController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $resultat = $compositionTest->getResultat();
+            if ($resultat === 'ADMIS(E)'){
+                $resultat = true;
+                $this->gestionMail->notificationResultatTest($compositionTest->getCandidat(), $compositionTest, $resultat);
+            }else{
+                $resultat = false;
+                $this->gestionMail->notificationResultatTest($compositionTest->getCandidat(), $compositionTest, $resultat);
+            }
 
             return $this->redirectToRoute('composition_test_index');
         }

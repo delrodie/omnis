@@ -84,6 +84,15 @@ class GestionMail
         return true;
     }
 
+    /**
+     * @param $objet
+     * @param $etudiant
+     * @param null $composition
+     * @return bool
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
     public function notificationInscriptionTestValidation($objet,$etudiant, $composition =null)
     {
         // Envoi d'email à l'etudiant concerné
@@ -96,6 +105,29 @@ class GestionMail
                 $this->template->render('email/inscription_test_validation.html.twig',[
                     'etudiant' => $etudiant,
                     'composition' => $composition
+                ]),
+                'text/html'
+            )
+        ;
+
+        $this->swift_mail->send($email_etudiant);
+
+        return true;
+    }
+
+    public function notificationResultatTest($candidat, $composition, $resultat = null)
+    {
+        // Envoi d'email à l'etudiant concerné
+        $email_etudiant = (new \Swift_Message("RESULTAT TEST D'ENTREE "))
+            ->setFrom('no-reply@selfbrandingci.com', 'SELFBRANDING::OMNIS')
+            ->setTo($candidat->getUser()->getEmail())
+            //->setBcc('delrodieamoikon@gmail.com')
+            ->setBcc(['delrodieamoikon@gmail.com'])
+            ->setBody(
+                $this->template->render('email/inscription_test_resultat.html.twig',[
+                    'candidat' => $candidat,
+                    'composition' => $composition,
+                    'resultat' => $resultat
                 ]),
                 'text/html'
             )

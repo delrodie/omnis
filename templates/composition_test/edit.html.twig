@@ -1,13 +1,179 @@
-{% extends 'base.html.twig' %}
+{% extends 'inscription_backend_layout.html.twig' %}
 
 {% block title %}Edit CompositionTest{% endblock %}
 
 {% block body %}
-    <h1>Edit CompositionTest</h1>
+    <div class="page-wrapper">
+        <div class="content container-fluid">
 
-    {{ include('composition_test/_form.html.twig', {'button_label': 'Update'}) }}
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="page-title">Gestion des inscrits</h3>
+                    </div>
+                    {% for message in app.flashes('success') %}
+                        <div class="col-12">
+                            <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <i class="mdi mdi-checkbox-marked-circle font-32"></i><strong class="pr-1">Success !</strong> {{ message }}
+                            </div>
+                        </div>
+                    {% endfor %}
 
-    <a href="{{ path('composition_test_index') }}">back to list</a>
+                    {% for message in app.flashes('error') %}
+                        <div class="col-12">
+                            <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <i class="mdi mdi-close-circle font-32"></i><strong class="pr-1">Erreur !</strong>
+                                {{ message }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
 
-    {{ include('composition_test/_delete_form.html.twig') }}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="profile-header">
+                        <div class="row align-items-center">
+                            <div class="col-auto profile-image">
+                                <a href="#">
+                                    <img class="rounded-circle" alt="{{ composition_test.candidat.nom }} {{ composition_test.candidat.prenoms }}" src="{{ absolute_url(asset('uploads/candidats/identite/'~ composition_test.candidat.fileIdentite)) }}">
+                                </a>
+                            </div>
+                            <div class="col ml-md-n2 profile-user-info">
+                                <h4 class="user-name mb-0">{{ composition_test.candidat.nom }} {{ composition_test.candidat.prenoms }}</h4>
+                                <h6 class="text-muted">{{composition_test.candidat.user.email}}</h6>
+                                <div class="user-Location">{{ composition_test.candidat.filiere.institut.sigle}} - {{ composition_test.candidat.filiere.libelle }}</div>
+                            </div>
+                            <div class="col-auto profile-btn">
+                                {% if composition_test.candidat.valid %}
+                                    <button class="btn btn-outline-secondary">Demande approuvée</button>
+                                {% else %}
+                                    <form action="{{ path('backend_inscription_edit', {'reference': composition_test.candidat.reference}) }}">
+                                        <input type="hidden" name="inscription_validation" value="{{ composition_test.candidat.reference }}">
+                                        <button type="submit" class="btn btn-primary">Valider</button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-menu">
+                        <ul class="nav nav-tabs nav-tabs-solid">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#per_details_tab">Informations personnelles</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#password_tab">Informations scolaires</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#resultat_tab">Resultat test</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content profile-tab-cont">
+
+                        <div class="tab-pane fade show active" id="per_details_tab">
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title d-flex justify-content-between mb-5">
+                                                <span>Informations personnelles</span>
+                                            </h5>
+                                            <div class="row">
+                                                <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Nom & prenoms</p>
+                                                <p class="col-sm-10">{{  composition_test.candidat.nom|upper }} {{ composition_test.candidat.prenoms|title }}</p>
+                                            </div>
+                                            <div class="row">
+                                                <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Date de naissance</p>
+                                                <p class="col-sm-10">{{ composition_test.candidat.dateNaissance }}</p>
+                                            </div>
+                                            <div class="row">
+                                                <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Lieu de naissance</p>
+                                                <p class="col-sm-10">{{ composition_test.candidat.lieuNaissance }}</p>
+                                            </div>
+                                            <div class="row">
+                                                <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Telephone</p>
+                                                <p class="col-sm-10">{{  composition_test.candidat.contact }}</p>
+                                            </div>
+                                            <div class="row">
+                                                <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">En cas d'urgence</p>
+                                                <p class="col-sm-10">{{  composition_test.candidat.correspondant }}</p>
+                                            </div>
+                                            <div class="row">
+                                                <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Email</p>
+                                                <p class="col-sm-10">{{  composition_test.candidat.user ? composition_test.candidat.user.email : '-' }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                            <!-- /Personal Details -->
+
+                        </div>
+
+                        <div id="password_tab" class="tab-pane fade">
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-5">Informations scolaires</h5>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Niveau d'étude</p>
+                                                <p class="col-sm-10">{{  composition_test.candidat.niveauEtude }} </p>
+                                            </div>
+                                            <div class="row">
+                                                <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Dernier diplôme</p>
+                                                <p class="col-sm-10">{{  composition_test.candidat.dernierDiplome }} </p>
+                                            </div>
+                                            <div class="row">
+                                                <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Filière souhaitée</p>
+                                                <p class="col-sm-10">{{ composition_test.candidat.filiere.institut.sigle }} {{  composition_test.candidat.filiere.libelle }} </p>
+                                            </div>
+                                            <div class="row">
+                                                <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Copie du baccalaureat</p>
+                                                <p class="col-sm-10"><a href="{{ absolute_url(asset('uploads/inscription/diplome/baccalaureat/'~ composition_test.candidat.baccalaureat)) }}" class="" target="_blank">Télécharger</a></p>
+                                            </div>
+                                            <div class="row">
+                                                <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Copie du dernier diplôme</p>
+                                                <p class="col-sm-10"><a href="{{ absolute_url(asset('uploads/inscription/diplome/dernier/'~ composition_test.candidat.fileDiplome)) }}" class="" target="_blank">Télécharger</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="resultat_tab" class="tab-pane fade">
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-5">Resultat du test</h5>
+                                    <div class="row">
+                                        <div class="col-md-10">
+
+                                            {{ include('composition_test/_form.html.twig', {'button_label': 'Envoyer'}) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 {% endblock %}
