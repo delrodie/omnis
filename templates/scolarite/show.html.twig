@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Scolarite{% endblock %}
+
+{% block body %}
+    <h1>Scolarite</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ scolarite.id }}</td>
+            </tr>
+            <tr>
+                <th>Montant</th>
+                <td>{{ scolarite.montant }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('scolarite_index') }}">back to list</a>
+
+    <a href="{{ path('scolarite_edit', {'id': scolarite.id}) }}">edit</a>
+
+    {{ include('scolarite/_delete_form.html.twig') }}
+{% endblock %}

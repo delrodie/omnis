@@ -1,0 +1,106 @@
+{% extends 'inscription_backend_layout.html.twig' %}
+
+{% block title %}{{  parent() }} Gestion des scolarités{% endblock %}
+
+{% block body %}
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="page-title">Gestion des scolarités</h3>
+                    </div>
+                    {% for message in app.flashes('success') %}
+                        <div class="col-12">
+                            <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <i class="mdi mdi-checkbox-marked-circle font-32"></i><strong class="pr-1">Success !</strong> {{ message }}
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    {% for message in app.flashes('error') %}
+                        <div class="col-12">
+                            <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <i class="mdi mdi-close-circle font-32"></i><strong class="pr-1">Erreur !</strong>
+                                {{ message }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">{{ 'labelList'|trans }}</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="datatable table table-hover table-center mb-0">
+                                    <thead>
+                                    <tr>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">Classes</th>
+                                        <th class="text-center">filières</th>
+                                        <th class="text-center">Montants</th>
+                                        <th class="text-center">actions</th>
+                                    </tr>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for scolarite in scolarites %}
+                                        <tr>
+                                            <td>{{ loop.index }}</td>
+                                            <td>{{ scolarite.classe.sigle }}</td>
+                                            <td>{{ scolarite.filiere.libelle }}</td>
+                                            <td class="text-right">{{ scolarite.montant|number_format(0,' ','.') }}</td>
+                                            <td class="text-center">
+                                                <a href="{{ path('backend_scolarite_edit', {'id': scolarite.id}) }}"><i class="fe fe-edit"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="4" class="text-center">Aucun enregistrement</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+                            <h4 class="card-title">{{ 'labelSave'|trans }}</h4>
+                        </div>
+                        <div class="card-body">
+                            {{ include('scolarite/_form.html.twig', {'button_label': 'btnUpdate'|trans}) }}
+
+                            {{ include('scolarite/_delete_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/plugins/datatables/datatables.min.css')) }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ absolute_url(asset('backoffice/plugins/datatables/jquery.dataTables.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('backoffice/plugins/datatables/datatables.min.js')) }}"></script>
+{% endblock %}

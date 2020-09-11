@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('backend_scolarite_delete', {'id': scolarite.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer cette scolarité');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ scolarite.id) }}">
+    <button class="btn btn-danger">{{ 'btnDelete'|trans }}</button>
+</form>
