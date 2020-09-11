@@ -139,6 +139,36 @@ class GestionMail
     }
 
     /**
+     * Mail de notification d'identification
+     *
+     * @param $etudiant
+     * @return bool
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function notificationIdentificationEtudiant($etudiant)
+    {
+        // Envoi d'email à l'etudiant concerné
+        $email_etudiant = (new \Swift_Message("IDENTIFICATION "))
+            ->setFrom('no-reply@selfbrandingci.com', 'SELFBRANDING::OMNIS')
+            ->setTo($etudiant->getUser()->getEmail())
+            //->setBcc('delrodieamoikon@gmail.com')
+            ->setBcc(['delrodieamoikon@gmail.com'])
+            ->setBody(
+                $this->template->render('email/etudiant_identification.html.twig',[
+                    'etudiant' => $etudiant,
+                ]),
+                'text/html'
+            )
+        ;
+
+        $this->swift_mail->send($email_etudiant);
+
+        return true;
+    }
+
+    /**
      * Les messages pour l'envoi de mail
      * 0 = Message de confirmation de creation de compte
      *

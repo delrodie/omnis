@@ -38,3 +38,4 @@ services:
             $mediaIdentite: '%kernel.project_dir%/public/uploads/candidats/identite'
             $mediaBac: '%kernel.project_dir%/public/uploads/inscription/diplome/baccalaureat'
             $mediaDernierDiplome: '%kernel.project_dir%/public/uploads/inscription/diplome/dernier'
+            $mediaEtudiantPhoto: '%kernel.project_dir%/public/uploads/etudiants/identite'

@@ -14,12 +14,14 @@ class GestionMedia
     private $mediaIdentite;
     private $mediaBac;
     private $mediaDernierDiplome;
+    private $mediaEtudiantPhoto;
 
-    public function __construct($mediaIdentite, $mediaBac, $mediaDernierDiplome)
+    public function __construct($mediaIdentite, $mediaBac, $mediaDernierDiplome, $mediaEtudiantPhoto)
     {
         $this->mediaIdentite = $mediaIdentite;
         $this->mediaBac = $mediaBac;
         $this->mediaDernierDiplome = $mediaDernierDiplome;
+        $this->mediaEtudiantPhoto = $mediaEtudiantPhoto;
     }
 
     public function upload(UploadedFile $file, $media = null)
@@ -35,6 +37,7 @@ class GestionMedia
             if ($media === 'identite') $file->move($this->mediaIdentite, $newFilename);
             elseif ($media === 'bac') $file->move($this->mediaBac, $newFilename);
             elseif ($media === 'diplome') $file->move($this->mediaDernierDiplome, $newFilename);
+            elseif ($media === 'photo') $file->move($this->mediaEtudiantPhoto, $newFilename);
             else $file->move($this->mediaIdentite, $newFilename);
         }catch (FileException $e){
 
